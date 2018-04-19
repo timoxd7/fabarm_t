@@ -5,9 +5,9 @@
 
 //Button and Block-Positions port definitions
 #define BUTTON_PIN 2
-#define POSITION_A_PIN 0
-#define POSITION_B_PIN 1
-#define POSITION_C_PIN 2
+#define POSITION_A_PIN 0 //A0
+#define POSITION_B_PIN 1 //A1
+#define POSITION_C_PIN 2 //A2
 
 //How many positions where the Block can be placed are there?
 #define POSITION_COUNT 3
@@ -27,6 +27,9 @@ motionServo servo[SERVO_COUNT];
 
 
 void setup() {
+  Serial.begin(115200);
+  Serial.setTimeout(100);
+
   /*
     RC.begin();
     for (uint8_t i = 0; i < CHANNEL_AMOUNT; i++){
@@ -41,59 +44,81 @@ void setup() {
   pinMode(BUTTON_PIN, INPUT_PULLUP);
   pinMode(LED_BUILTIN, OUTPUT);
 
-  for (uint8_t i = 0; i < POSITION_COUNT; i++){
+  for (uint8_t i = 0; i < POSITION_COUNT; i++) {
     pinMode(positionPin[i], INPUT);
   }
 }
 
+bool loaded;
 void loop() {
-  bool buttonPress = digitalRead(BUTTON_PIN), loaded = false;
+  //Do something by button press
+  if (digitalRead(BUTTON_PIN)) onButtonPress();
 
-  if (buttonPress) {
-    if (loaded) {
-      loaded = !dropAnim();
-    } else {
-      loaded = pickupAnim();
-    }
+  if (Serial.available() > 0) serialEvent();
+}
+
+
+void onButtonPress() {
+  if (loaded) {
+    loaded = !dropAnim();
+  } else {
+    loaded = pickupAnim();
   }
 }
 
+void serialEvent() {
+  while (Serial.available() > 0) {
+    char incomingChar = Serial.read();
+
+    if (incomingChar == 'b' || incomingChar == 'B') {
+      onButtonPress();
+    } else if (incomingChar == 'r' || incomingChar == 'R') {
+      //Here will come code for RC control in the future
+    }
+
+    emptySerial();
+  }
+}
+
+void emptySerial() {
+  while (Serial.available() > 0) Serial.read();
+}
 
 bool pickupAnim() {
   uint8_t filledPlace = findPlace(true);
 
-  if (filledPlace < 0 || filledPlace > 2) {
-    animator(NOTHING_FOUND_DURATION, nothingFound, MAX_SPEED);
-    return false;
-  } else {
+  if (filledPlace >= 0 && filledPlace < POSITION_COUNT) {
     animator(PICKUP_DURATION, pickup[filledPlace], MAX_SPEED);
     return true;
+  } else {
+    animator(NOTHING_FOUND_DURATION, nothingFound, MAX_SPEED);
+    return false;
   }
 }
 
 bool dropAnim() {
   uint8_t freePlace = findPlace(false);
 
-  if (freePlace < 0 || freePlace >= POSITION_COUNT) {
-    animator(NOTHING_FOUND_DURATION, nothingFound, MAX_SPEED);
-    return false;
-  } else {
+  if (freePlace >= 0 && freePlace < POSITION_COUNT) {
     animator(DROP_DURATION, drop[freePlace], MAX_SPEED);
     return true;
+  } else {
+    animator(NOTHING_FOUND_DURATION, nothingFound, MAX_SPEED);
+    return false;
   }
 }
 
 uint8_t findPlace(bool filled) {
   uint8_t matchingPlaces[POSITION_COUNT];
   uint8_t matchingCount = 0;
-  
-  for (uint8_t i = 0; i < POSITION_COUNT; i++){
+
+  for (uint8_t i = 0; i < POSITION_COUNT; i++) {
     if (analogRead(positionPin[i]) < POSITION_LOADED_THRESHHOLD) {
-      if (filled){
+      if (filled) {
         matchingPlaces[matchingCount++] = i;
       }
     } else {
-      if (!filled){
+      if (!filled) {
         matchingPlaces[matchingCount++] = i;
       }
     }
@@ -149,7 +174,7 @@ void animator(uint8_t duration, uint8_t animation[][SERVO_COUNT], float speed) {
       }
 
     }
-    
+
     bool movement = true;
     while (movement) {
       movement = false;

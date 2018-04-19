@@ -47,7 +47,7 @@ class motionServo {
       }
     }
 
-    uint8_t getHome(){
+    uint8_t getHome() {
       return _servo.home;
     }
 
