@@ -1,11 +1,31 @@
 #include <Servo.h>
 
+#define SERVO_MIN 0
+#define SERVO_MAX 180
+
 class MotionServo {
   public:
     void begin(uint8_t Pin, uint8_t Min, uint8_t Max, uint8_t Home) {
-      _servo.pin = Pin;
+      //Check Min for Possibility
+      if (Min < SERVO_MIN) Min = SERVO_MIN;
+      else if (Min > SERVO_MAX) Min = SERVO_MAX;
+
+      //Check Max for Possibility
+      if (Max < SERVO_MIN) Max = SERVO_MIN;
+      else if (Max > SERVO_MAX) Max = SERVO_MAX;
+
+      //Check Home for Possibility
+      if(Min < Max) {
+        if (Home < Min) Home = Min;
+        else if (Home > Max) Home = Max;
+      } else if (Min > Max) {
+        if (Home > Min) Home = Min;
+        else if (Home < Max) Home = Max;
+      } else Home = Min;
+      
       _servo.min = Min;
       _servo.max = Max;
+      _servo.pin = Pin;
       _servo.home = Home;
 
       _servo.object.attach(Pin);
