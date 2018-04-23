@@ -1,6 +1,6 @@
 #include <Servo.h>
 
-class motionServo {
+class MotionServo {
   public:
     void begin(uint8_t Pin, uint8_t Min, uint8_t Max, uint8_t Home) {
       _servo.pin = Pin;
@@ -81,7 +81,7 @@ class motionServo {
 };
 
 
-bool motionServo::loop() {
+bool MotionServo::loop() {
   if (_position.destination == _position.current) return false;
   if (millis() < _time.start) return true;
 

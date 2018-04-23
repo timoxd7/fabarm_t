@@ -1,7 +1,7 @@
 //#include "FastRCReader.h"
 #include "animations.h"
 #include "ServoProperties.h"
-#include "motionServo.h"
+#include "MotionServo.h"
 
 //Button and Block-Positions port definitions
 #define BUTTON_PIN 2
@@ -23,7 +23,7 @@
 
 const uint8_t positionPin[POSITION_COUNT] = {POSITION_A_PIN, POSITION_B_PIN, POSITION_C_PIN};
 
-motionServo servo[SERVO_COUNT];
+MotionServo servo[SERVO_COUNT];
 
 
 void setup() {
