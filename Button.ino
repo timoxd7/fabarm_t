@@ -7,14 +7,7 @@ void prepareButton() {
     servo[i].home(movementTime, currentTime);
   }
 
-  bool movement = true;
-  while (movement) {
-    movement = false;
-
-    for (uint8_t i = 0; i < SERVO_COUNT; i++) {
-      movement |= servo[i].loop();
-    }
-  }
+  waitTillMovementEnds();
 
   LED(LOW);
 }

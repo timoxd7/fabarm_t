@@ -1,4 +1,4 @@
-//Copyed from https://www.github.com/timoxd7/FastRCReader and changed needed port definition
+//Copyed from https://www.github.com/timoxd7/FastRCReader and modifyed for specific needs
 
 //------------------------------------------------------------------------------------------
 

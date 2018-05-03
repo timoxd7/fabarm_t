@@ -44,17 +44,20 @@ void animator(uint8_t duration, uint8_t animation[][SERVO_COUNT], float speed) {
 
     }
 
-    bool movement = true;
-    while (movement) {
-      movement = false;
-
-      for (uint8_t j = 0; j < SERVO_COUNT; j++) {
-        movement |= servo[j].loop();
-      }
-    }
+    waitTillMovementEnds();
   }
 
   LED(LOW);
 }
 
+void waitTillMovementEnds() {
+  bool movement = true;
+  while (movement) {
+    movement = false;
+
+    for (uint8_t i = 0; i < SERVO_COUNT; i++) {
+      movement |= servo[i].loop();
+    }
+  }
+}
 
