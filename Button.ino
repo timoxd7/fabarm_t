@@ -1,3 +1,25 @@
+void prepareButton() {
+  LED(HIGH);
+
+  unsigned long currentTime = millis(), movementTime = 180 * MAX_SPEED;
+
+  for (uint8_t i = 0; i < SERVO_COUNT; i++) {
+    servo[i].home(movementTime, currentTime);
+  }
+
+  bool movement = true;
+  while (movement) {
+    movement = false;
+
+    for (uint8_t i = 0; i < SERVO_COUNT; i++) {
+      movement |= servo[i].loop();
+    }
+  }
+
+  LED(LOW);
+}
+
+bool loaded;
 void onButtonPress() {
   if (loaded) {
     loaded = !dropAnim();

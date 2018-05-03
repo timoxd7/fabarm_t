@@ -13,8 +13,8 @@
 //Servo counter
 #define SERVO_COUNT 4
 
-//Max Servo Speed in mS/Ã‚Â°
-#define MAX_SPEED 100/9  //== 90 Ã‚Â°/S
+//Max Servo Speed in mS/°
+#define MAX_SPEED 100/9  //== 90 °/S
 
 //servoProperties IDs
 #define PORT_ID 0

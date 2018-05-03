@@ -1,7 +1,9 @@
-//#include "FastRCReader.h"
+#include "FastRCReader.h"
 #include "animations.h"
 #include "ServoProperties.h"
 #include "MotionServo.h"
+#include "RCProperties.h"
+#include <EEPROM.h>
 
 //Button and Block-Positions port definitions
 #define BUTTON_PIN 2
@@ -15,13 +17,8 @@
 //Photo-sensor threshholde to think there is a block in place or not
 #define POSITION_LOADED_THRESHHOLD 50
 
-/*
-  //RC Port definitions
-  #define CHANNEL_AMOUNT 4
-  const uint8_t rcChannels[] = {3, 4, 5, 6};
-
-  RCChannelMapper RC;
-*/
+//Create RC Object
+RCChannelMapper RC;
 
 const uint8_t positionPin[POSITION_COUNT] = {POSITION_A_PIN, POSITION_B_PIN, POSITION_C_PIN};
 
@@ -32,32 +29,47 @@ void setup() {
   Serial.begin(115200);
   Serial.setTimeout(100);
 
-  /*
-    RC.begin();
-    for (uint8_t i = 0; i < CHANNEL_AMOUNT; i++){
-    RC.addChannel(rcChannels[i]);
-    }
-  */
+  pinMode(BUTTON_PIN, INPUT_PULLUP);
+  pinMode(LED_BUILTIN, OUTPUT);
 
+  LED(HIGH);
+
+  //Prepare the RC-RX and add all needed Channels
+  RC.begin();
+  for (uint8_t i = 0; i < CHANNEL_AMOUNT; i++) {
+    RC.addChannel(rcChannels[i]);
+  }
+
+  //Get saved calibration from EEPROM
+  EEPROM.get(EEPROM_ADRESS, RC);
+
+  //Set the mapping from the RC-Channels to output values between 0 and 180
+  for (uint8_t i = 0; i < CHANNEL_AMOUNT; i++) {
+    RC.setTo180(rcChannels[i]);
+  }
+
+  //Prepare all servos to be ready
   for (uint8_t i = 0; i < SERVO_COUNT; i++) {
     servo[i].begin(servoProperties[i][PORT_ID], servoProperties[i][MIN_ID], servoProperties[i][MAX_ID], servoProperties[i][HOME_ID]);
   }
 
-  pinMode(BUTTON_PIN, INPUT_PULLUP);
-  pinMode(LED_BUILTIN, OUTPUT);
-
   for (uint8_t i = 0; i < POSITION_COUNT; i++) {
     pinMode(positionPin[i], INPUT);
   }
+
+  LED(LOW);
 }
 
-bool loaded;
 uint8_t activeProgram = 1;
 void loop() {
   switch (activeProgram) {
     case 1:
       //Do something by button press
       if (digitalRead(BUTTON_PIN)) onButtonPress();
+      break;
+    case 2:
+      //Response to RC once
+      rcLoop();
       break;
   }
 

@@ -6,12 +6,17 @@ void serialEvent() {
       Serial.print("Button digitally pressed!\n\n");
       onButtonPress();
     } else if (incomingChar == 'r' || incomingChar == 'R') {
-      //Here will come code for RC control in the future
-      Serial.print("RC is not implemented yet (0x03)\n\n");
+      Serial.print("RC control is ");
+      if (activeProgram == 2) Serial.print("active. You can use your remote to control the fabarm.");
+      else Serial.print("not active.\n\tTo activate it, send AR over Serial.");
     } else if (incomingChar == 'a' || incomingChar == 'A') {
       //Activate or deactivate a Program
-      Serial.print("What to deactivate?\n\nB == Button (currently ");
+      Serial.print("What to (de)activate?\n\nB == Button (currently ");
       if (activeProgram == 1) Serial.print("active");
+      else Serial.print("not active");
+
+      Serial.print(")\nR == RC control (currently ");
+      if (activeProgram == 2) Serial.print("active");
       else Serial.print("not active");
 
       Serial.print(")\nS == Stop any active Program\n\n");
@@ -24,9 +29,14 @@ void serialEvent() {
           activeProgram = 0;
         } else {
           activeProgram = 1;
+          prepareButton();
         }
       } else if (incomingChar == 'r' || incomingChar == 'R') {
-        Serial.print("RC is not implemented yet (0x04)\n\n");
+        if (activeProgram == 2) {
+          activeProgram = 0;
+        } else {
+          activeProgram = 2;
+        }
       } else if (incomingChar == 's' || incomingChar == 'S') {
         activeProgram = 0;
       } else {
