@@ -15,14 +15,14 @@ class MotionServo {
       else if (Max > SERVO_MAX) Max = SERVO_MAX;
 
       //Check Home for Possibility
-      if(Min < Max) {
+      if (Min < Max) {
         if (Home < Min) Home = Min;
         else if (Home > Max) Home = Max;
       } else if (Min > Max) {
         if (Home > Min) Home = Min;
         else if (Home < Max) Home = Max;
       } else Home = Min;
-      
+
       _servo.min = Min;
       _servo.max = Max;
       _servo.pin = Pin;

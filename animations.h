@@ -1,6 +1,6 @@
 //{middle, left, right, claw}
 
-//Servo has only a 180 degree which can be used. So all after 180 can be used to be packed with custom functins
+//Servo has only a 180 degree which can be used. So all values after 180 can be used to trigger custom functins
 //181 == no change
 //182 == home position
 
@@ -64,3 +64,5 @@ const uint8_t nothingFound[6][4] = {{       60, NO_CHANGE, NO_CHANGE, NO_CHANGE}
                                      {      100, NO_CHANGE, NO_CHANGE, NO_CHANGE},
                                      {       60, NO_CHANGE, NO_CHANGE, NO_CHANGE},
                                      {       83, NO_CHANGE, NO_CHANGE, NO_CHANGE}};
+
+

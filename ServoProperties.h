@@ -13,8 +13,8 @@
 //Servo counter
 #define SERVO_COUNT 4
 
-//Max Servo Speed in mS/°
-#define MAX_SPEED 100/9  //== 90 °/S
+//Max Servo Speed in mS/Ã‚Â°
+#define MAX_SPEED 100/9  //== 90 Ã‚Â°/S
 
 //servoProperties IDs
 #define PORT_ID 0
@@ -27,3 +27,5 @@ const uint8_t servoProperties[4][4] = {{SERVO_MIDDLE_PORT, 12, 160, 80},
                                        {SERVO_LEFT_PORT,   30,  90, 30},
                                        {SERVO_RIGHT_PORT,  45, 180, 90},
                                        {SERVO_CLAW_PORT,    0,  97, 97}};
+
+
