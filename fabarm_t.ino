@@ -19,6 +19,8 @@
   //RC Port definitions
   #define CHANNEL_AMOUNT 4
   const uint8_t rcChannels[] = {3, 4, 5, 6};
+
+  RCChannelMapper RC;
 */
 
 const uint8_t positionPin[POSITION_COUNT] = {POSITION_A_PIN, POSITION_B_PIN, POSITION_C_PIN};

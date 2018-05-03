@@ -3,10 +3,11 @@ void serialEvent() {
     char incomingChar = Serial.read();
 
     if (incomingChar == 'b' || incomingChar == 'B') {
+      Serial.print("Button digitally pressed!\n\n");
       onButtonPress();
     } else if (incomingChar == 'r' || incomingChar == 'R') {
       //Here will come code for RC control in the future
-      Serial.print("RC not implemented yet (0x03)");
+      Serial.print("RC is not implemented yet (0x03)\n\n");
     } else if (incomingChar == 'a' || incomingChar == 'A') {
       //Activate or deactivate a Program
       Serial.print("What to deactivate?\n\nB == Button (currently ");
@@ -25,15 +26,15 @@ void serialEvent() {
           activeProgram = 1;
         }
       } else if (incomingChar == 'r' || incomingChar == 'R') {
-        Serial.print("RC not implemented yet (0x04)");
+        Serial.print("RC is not implemented yet (0x04)\n\n");
       } else if (incomingChar == 's' || incomingChar == 'S') {
         activeProgram = 0;
       } else {
-        Serial.print("False input! (0x02)");
+        Serial.print("False input! (0x02)\n\n");
       }
 
     } else {
-      Serial.print("False input! (0x01)");
+      Serial.print("False input! (0x01)\n\n");
     }
 
     emptySerial();

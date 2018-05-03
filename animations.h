@@ -59,10 +59,10 @@ const uint8_t drop[3][7][4] = {{{       40, NO_CHANGE, NO_CHANGE, NO_CHANGE},
 
 #define NOTHING_FOUND_DURATION 6
 const uint8_t nothingFound[6][4] = {{       60, NO_CHANGE, NO_CHANGE, NO_CHANGE},
-                                     {      100, NO_CHANGE, NO_CHANGE, NO_CHANGE},
-                                     {       60, NO_CHANGE, NO_CHANGE, NO_CHANGE},
-                                     {      100, NO_CHANGE, NO_CHANGE, NO_CHANGE},
-                                     {       60, NO_CHANGE, NO_CHANGE, NO_CHANGE},
-                                     {       83, NO_CHANGE, NO_CHANGE, NO_CHANGE}};
+                                    {      100, NO_CHANGE, NO_CHANGE, NO_CHANGE},
+                                    {       60, NO_CHANGE, NO_CHANGE, NO_CHANGE},
+                                    {      100, NO_CHANGE, NO_CHANGE, NO_CHANGE},
+                                    {       60, NO_CHANGE, NO_CHANGE, NO_CHANGE},
+                                    {       83, NO_CHANGE, NO_CHANGE, NO_CHANGE}};
 
 
