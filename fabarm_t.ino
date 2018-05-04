@@ -1,20 +1,12 @@
 #include "FastRCReader.h"
+#include "PortDefinitions.h"
 #include "animations.h"
 #include "ServoProperties.h"
 #include "MotionServo.h"
 #include "RCProperties.h"
 #include <EEPROM.h>
 
-//Button and Block-Positions port definitions
-#define BUTTON_PIN 2
-#define POSITION_A_PIN 0 //A0
-#define POSITION_B_PIN 1 //A1
-#define POSITION_C_PIN 2 //A2
-
-//How many positions where the Block can be placed are there?
-#define POSITION_COUNT 3
-
-//Photo-sensor threshholde to think there is a block in place or not
+//Photo-sensor threshholde to detect if there is a block in place or not
 #define POSITION_LOADED_THRESHHOLD 50
 
 //Create RC Object
