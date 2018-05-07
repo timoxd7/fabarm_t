@@ -1,13 +1,18 @@
 void animator(uint8_t duration, uint8_t animation[][SERVO_COUNT], float speed) {
   LED(HIGH);
+  Serial.println("Starting Animation");
 
   for (uint8_t i = 0; i < duration; i++) {
     { //To delet local Vars after using them while the loop is active
+      Serial.print("Calculating and doing movement "); Serial.println(i);
       int16_t servoMovement[SERVO_COUNT];
       bool homeServo[SERVO_COUNT];
 
       //First, get the incremental change of each servo
       for (uint8_t j = 0; j < SERVO_COUNT; j++) {
+        //Set homing first off to prevent from false triggering
+        homeServo[j] = false;
+
         if (animation[i][j] == NO_CHANGE) {
           //Do nothing
           servoMovement[j] = 0;
@@ -24,7 +29,7 @@ void animator(uint8_t duration, uint8_t animation[][SERVO_COUNT], float speed) {
       uint8_t highestChange;
       for (uint8_t j = 0; j < SERVO_COUNT; j++) {
         uint8_t currentValue = 0;
-        if (servoMovement[j] < 0) currentValue -= servoMovement[j];
+        if (servoMovement[j] < 0) currentValue == -servoMovement[j];
         else currentValue = servoMovement[j];
 
         if (currentValue > highestChange) highestChange = currentValue;
@@ -46,6 +51,8 @@ void animator(uint8_t duration, uint8_t animation[][SERVO_COUNT], float speed) {
 
     waitTillMovementEnds();
   }
+
+  Serial.println("Animation finished!\n");
 
   LED(LOW);
 }

@@ -1,3 +1,7 @@
+//Copyed from https://www.github.com/timoxd7/MotionServo and modifyed for specific needs
+
+//------------------------------------------------------------------------------------------
+
 #include <Servo.h>
 
 #define SERVO_MIN 0

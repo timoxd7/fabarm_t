@@ -5,7 +5,7 @@
 #define CLAW_ID   3
 
 //Max Servo Speed in mS/°
-#define MAX_SPEED 100/9  //== 90 °/S
+#define MAX_SPEED 100/18  //== 180 °/S
 
 //servoProperties IDs
 #define PORT_ID 0
