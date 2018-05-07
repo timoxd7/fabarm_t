@@ -34,7 +34,7 @@ class MotionServo {
 
       _servo.object.attach(Pin);
 
-      home(0);
+      home(0, 0);
     }
 
     void home(unsigned long Time, unsigned long startTime = millis()) {
@@ -79,7 +79,7 @@ class MotionServo {
       return _position.current;
     }
 
-    bool loop();
+    bool loop(unsigned long currentLoopTime = millis());
 
   protected:
     void setServo(uint8_t Position) {
@@ -105,18 +105,18 @@ class MotionServo {
 };
 
 
-bool MotionServo::loop() {
+bool MotionServo::loop(unsigned long currentTime) {
   if (_position.destination == _position.current) return false;
-  if (millis() < _time.start) return true;
+  if (currentTime < _time.start) return true;
 
   int16_t movement = _position.destination - _position.start;
-  unsigned long currentTime = millis() - _time.start;
+  unsigned long currentMovementTime = currentTime - _time.start;
 
-  if (currentTime >= _time.duration) {
+  if (currentMovementTime >= _time.duration) {
     setServo(_position.destination);
     return false;
   } else {
-    uint8_t moveToThisTime = _position.start + (movement * (currentTime / _time.duration));
+    uint8_t moveToThisTime = _position.start + (movement * (currentMovementTime / _time.duration));
     setServo(moveToThisTime);
     return true;
   }

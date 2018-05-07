@@ -67,5 +67,3 @@ uint8_t findPlace(bool filled) {
 
   return matchingPlaces[randomPlace];
 }
-
-

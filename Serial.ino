@@ -11,7 +11,7 @@ void serialEvent() {
       Serial.println("Button-Program deactivated!\n\tTo activate, send AB over Serial\n");
     }
   } else if (incomingChar == 'r' || incomingChar == 'R') {
-    Serial.print("RC control is ");
+    Serial.print("RC control ");
     if (activeProgram == 2) Serial.println("active. You can use your remote to control the fabarm\n");
     else Serial.println("not active\n\tTo activate, send AR over Serial\n");
   } else if (incomingChar == 'a' || incomingChar == 'A') {
@@ -41,28 +41,31 @@ void serialEvent() {
     if (incomingChar == 'b' || incomingChar == 'B') {
       if (activeProgram == 1) {
         activeProgram = 0;
-        sendSerialDeactivated(); Serial.println("Button-Program\n");
+        sendSerialDeactivated();
       } else {
         activeProgram = 1;
         prepareButton();
-        sendSerialActivated(); Serial.println("Button-Program\n");
+        sendSerialActivated();
       }
+      Serial.println("Button-Program\n");
     } else if (incomingChar == 'r' || incomingChar == 'R') {
       if (activeProgram == 2) {
         activeProgram = 0;
-        sendSerialDeactivated(); Serial.println("RC-Program\n");
+        sendSerialDeactivated();
       } else {
         activeProgram = 2;
-        sendSerialActivated(); Serial.println("RC-Program\n");
+        sendSerialActivated();
       }
+      Serial.println("RC-Program\n");
     } else if (incomingChar == 'd' || incomingChar == 'D') {
       if (activeProgram == 3) {
         activeProgram = 0;
-        sendSerialDeactivated(); Serial.println("(only)Digital-Button-Program\n");
+        sendSerialDeactivated();
       } else {
         activeProgram = 3;
-        sendSerialActivated(); Serial.println("(only)Digital-Button-Program\n");
+        sendSerialActivated();
       }
+      Serial.println("(only)Digital-Button-Program\n");
     } else if (incomingChar == 's' || incomingChar == 'S') {
       activeProgram = 0;
       Serial.println("Stopped all active programs\n");
