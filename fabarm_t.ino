@@ -71,7 +71,7 @@ void setup() {
   LED(LOW);
 }
 
-uint8_t activeProgram = 3;
+uint8_t activeProgram = 1;
 void loop() {
   switch (activeProgram) {
     case 1:

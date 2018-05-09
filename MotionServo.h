@@ -116,7 +116,7 @@ bool MotionServo::loop(unsigned long currentTime) {
     setServo(_position.destination);
     return false;
   } else {
-    uint8_t moveToThisTime = _position.start + (movement * (currentMovementTime / _time.duration));
+    uint8_t moveToThisTime = _position.start + ((float)movement * ((float)currentMovementTime / (float)_time.duration));
     setServo(moveToThisTime);
     return true;
   }

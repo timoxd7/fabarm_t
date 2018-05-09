@@ -8,7 +8,7 @@
 #define HOME      182
 
 #define PICKUP_DURATION 5
-const uint8_t pickup[3][PICKUP_DURATION][4] = {{{       40,        50, NO_CHANGE,         0},
+const uint8_t pickup[3][PICKUP_DURATION][4] = {{{       38,        50, NO_CHANGE,         0},
                                                 {NO_CHANGE, NO_CHANGE,       160, NO_CHANGE},
                                                 {NO_CHANGE, NO_CHANGE, NO_CHANGE,        90},
                                                 {NO_CHANGE, NO_CHANGE,       110, NO_CHANGE},
@@ -27,7 +27,7 @@ const uint8_t pickup[3][PICKUP_DURATION][4] = {{{       40,        50, NO_CHANGE
                                                 {       83, NO_CHANGE,        90, NO_CHANGE}}};
 
 #define DROP_DURATION 5
-const uint8_t drop[3][DROP_DURATION][4] = {{{       40,        55, NO_CHANGE, NO_CHANGE},
+const uint8_t drop[3][DROP_DURATION][4] = {{{       38,        55, NO_CHANGE, NO_CHANGE},
                                             {NO_CHANGE, NO_CHANGE,       150, NO_CHANGE},
                                             {NO_CHANGE, NO_CHANGE, NO_CHANGE,         0},
                                             {NO_CHANGE, NO_CHANGE,       110, NO_CHANGE},
