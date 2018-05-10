@@ -1,6 +1,10 @@
-void animator(uint8_t duration, uint8_t animation[][SERVO_COUNT], float speed) {
+void animator(uint8_t duration, uint8_t animation[][SERVO_COUNT], float speed, bool smooth) {
   LED(HIGH);
-  Serial.println("Starting Animation:");
+  Serial.print("Starting Animation ");
+  if (smooth) Serial.print("with");
+  else Serial.print("without");
+
+  Serial.println(" smooth movement:");
 
   for (uint8_t i = 0; i < duration; i++) {
     { //To delet local Vars after using them while the loop is active
@@ -35,6 +39,10 @@ void animator(uint8_t duration, uint8_t animation[][SERVO_COUNT], float speed) {
         if (servoMovement[j] < 0) currentChange = -servoMovement[j];
         else currentChange = servoMovement[j];
 
+        #ifdef CLAW_DOUBLE_SPEED
+        if (j == CLAW_ID) currentChange /= 2;
+        #endif
+
         if (currentChange > highestChange) highestChange = currentChange;
       } Serial.println("");
 
@@ -52,7 +60,7 @@ void animator(uint8_t duration, uint8_t animation[][SERVO_COUNT], float speed) {
       }
     }
 
-    waitTillMovementEnds();
+    waitTillMovementEnds(smooth);
   }
 
   Serial.println("Animation finished!\n");
@@ -60,14 +68,14 @@ void animator(uint8_t duration, uint8_t animation[][SERVO_COUNT], float speed) {
   LED(LOW);
 }
 
-void waitTillMovementEnds() {
+void waitTillMovementEnds(bool smooth) {
   bool movement = true;
   while (movement) {
     movement = false;
     unsigned long currentTime = millis();
 
     for (uint8_t i = 0; i < SERVO_COUNT; i++) {
-      movement |= servo[i].loop(currentTime);
+      movement |= servo[i].loop(currentTime, smooth);
     }
   }
 }

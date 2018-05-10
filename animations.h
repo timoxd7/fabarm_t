@@ -8,42 +8,42 @@
 #define HOME      182
 
 #define PICKUP_DURATION 5
-const uint8_t pickup[3][PICKUP_DURATION][4] = {{{       38,        50, NO_CHANGE,         0},
+const uint8_t pickup[3][PICKUP_DURATION][4] = {{{       38,        50,       150,         0},
                                                 {NO_CHANGE, NO_CHANGE,       160, NO_CHANGE},
-                                                {NO_CHANGE, NO_CHANGE, NO_CHANGE,        90},
-                                                {NO_CHANGE, NO_CHANGE,       110, NO_CHANGE},
-                                                {       83, NO_CHANGE,        90, NO_CHANGE}},
+                                                {NO_CHANGE, NO_CHANGE, NO_CHANGE,        95},
+                                                {NO_CHANGE, NO_CHANGE,       140, NO_CHANGE},
+                                                {       82, NO_CHANGE,        90, NO_CHANGE}},
 
-                                               {{       83,        50, NO_CHANGE,         0},
+                                               {{       82,        50,       150,         0},
                                                 {NO_CHANGE, NO_CHANGE,       160, NO_CHANGE},
-                                                {NO_CHANGE, NO_CHANGE, NO_CHANGE,        90},
-                                                {NO_CHANGE, NO_CHANGE,       110, NO_CHANGE},
-                                                {       83, NO_CHANGE,        90, NO_CHANGE}},
+                                                {NO_CHANGE, NO_CHANGE, NO_CHANGE,        95},
+                                                {NO_CHANGE, NO_CHANGE,       140, NO_CHANGE},
+                                                {       82, NO_CHANGE,        90, NO_CHANGE}},
 
-                                               {{      132,        50, NO_CHANGE,         0},
+                                               {{      133,        50,       150,         0},
                                                 {NO_CHANGE, NO_CHANGE,       160, NO_CHANGE},
-                                                {NO_CHANGE, NO_CHANGE, NO_CHANGE,        90},
-                                                {NO_CHANGE, NO_CHANGE,       110, NO_CHANGE},
-                                                {       83, NO_CHANGE,        90, NO_CHANGE}}};
+                                                {NO_CHANGE, NO_CHANGE, NO_CHANGE,        95},
+                                                {NO_CHANGE, NO_CHANGE,       140, NO_CHANGE},
+                                                {       82, NO_CHANGE,        90, NO_CHANGE}}};
 
 #define DROP_DURATION 5
-const uint8_t drop[3][DROP_DURATION][4] = {{{       38,        55, NO_CHANGE, NO_CHANGE},
+const uint8_t drop[3][DROP_DURATION][4] = {{{       38,        55,       140, NO_CHANGE},
                                             {NO_CHANGE, NO_CHANGE,       150, NO_CHANGE},
                                             {NO_CHANGE, NO_CHANGE, NO_CHANGE,         0},
-                                            {NO_CHANGE, NO_CHANGE,       110, NO_CHANGE},
-                                            {       83, NO_CHANGE,        90,       110}},
+                                            {NO_CHANGE, NO_CHANGE,       140, NO_CHANGE},
+                                            {       82, NO_CHANGE,        90,       110}},
 
-                                           {{       83,        55, NO_CHANGE, NO_CHANGE},
+                                           {{       82,        55,       140, NO_CHANGE},
                                             {NO_CHANGE, NO_CHANGE,       150, NO_CHANGE},
                                             {NO_CHANGE, NO_CHANGE, NO_CHANGE,         0},
-                                            {NO_CHANGE, NO_CHANGE,       110, NO_CHANGE},
-                                            {       83, NO_CHANGE,        90,       110}},
+                                            {NO_CHANGE, NO_CHANGE,       140, NO_CHANGE},
+                                            {       82, NO_CHANGE,        90,       110}},
 
-                                           {{      132,        55, NO_CHANGE, NO_CHANGE},
+                                           {{      133,        55,       140, NO_CHANGE},
                                             {NO_CHANGE, NO_CHANGE,       150, NO_CHANGE},
                                             {NO_CHANGE, NO_CHANGE, NO_CHANGE,         0},
-                                            {NO_CHANGE, NO_CHANGE,       110, NO_CHANGE},
-                                            {       83, NO_CHANGE,        90,       110}}};
+                                            {NO_CHANGE, NO_CHANGE,       140, NO_CHANGE},
+                                            {       82, NO_CHANGE,        90,       110}}};
 
 #define NOTHING_FOUND_DURATION 6
 const uint8_t nothingFound[NOTHING_FOUND_DURATION][4] = {{       60, NO_CHANGE, NO_CHANGE, NO_CHANGE},

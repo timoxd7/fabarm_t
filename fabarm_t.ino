@@ -85,6 +85,9 @@ void loop() {
       //Response to RC once
       rcLoop();
       break;
+    case 4:
+      onButtonPress();
+      break;
   }
 
   if (Serial.available() > 0) serialEvent();

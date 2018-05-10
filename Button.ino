@@ -1,13 +1,16 @@
 void prepareButton() {
   LED(HIGH);
 
-  unsigned long currentTime = millis(), movementTime = 180 * MAX_SPEED;
+  unsigned long currentTime = millis(), movementTime;
+
+  if (useSmooth) movementTime = 180 * SMOOTH_ANIMATION_SPEED;
+  else movementTime = 180 * ANIMATION_SPEED;
 
   for (uint8_t i = 0; i < SERVO_COUNT; i++) {
     servo[i].home(movementTime, currentTime);
   }
 
-  waitTillMovementEnds();
+  waitTillMovementEnds(useSmooth);
 
   LED(LOW);
 }
@@ -23,24 +26,34 @@ void onButtonPress() {
 
 bool pickupAnim() {
   uint8_t filledPlace = findPlace(true);
+  float speed;
+  if (useSmooth) speed = SMOOTH_ANIMATION_SPEED;
+  else speed = ANIMATION_SPEED;
 
   if (filledPlace >= 0 && filledPlace < POSITION_COUNT) {
-    animator(PICKUP_DURATION, pickup[filledPlace], MAX_SPEED);
+    animator(PICKUP_DURATION, pickup[filledPlace], speed, useSmooth);
     return true;
   } else {
-    animator(NOTHING_FOUND_DURATION, nothingFound, MAX_SPEED);
+    bool smooth = false;
+    if (USE_SMOOTH_NOTHING_FOUND) smooth = useSmooth;
+    animator(NOTHING_FOUND_DURATION, nothingFound, speed, smooth);
     return false;
   }
 }
 
 bool dropAnim() {
   uint8_t freePlace = findPlace(false);
+  float speed;
+  if (useSmooth) speed = SMOOTH_ANIMATION_SPEED;
+  else speed = ANIMATION_SPEED;
 
   if (freePlace >= 0 && freePlace < POSITION_COUNT) {
-    animator(DROP_DURATION, drop[freePlace], MAX_SPEED);
+    animator(DROP_DURATION, drop[freePlace], speed, useSmooth);
     return true;
   } else {
-    animator(NOTHING_FOUND_DURATION, nothingFound, MAX_SPEED);
+    bool smooth = false;
+    if (USE_SMOOTH_NOTHING_FOUND) smooth = useSmooth;
+    animator(NOTHING_FOUND_DURATION, nothingFound, speed, smooth);
     return false;
   }
 }

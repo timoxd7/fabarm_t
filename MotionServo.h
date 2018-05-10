@@ -79,7 +79,7 @@ class MotionServo {
       return _position.current;
     }
 
-    bool loop(unsigned long currentLoopTime = millis());
+    bool loop(unsigned long currentLoopTime = millis(), bool smooth = false);
 
   protected:
     void setServo(uint8_t Position) {
@@ -105,7 +105,7 @@ class MotionServo {
 };
 
 
-bool MotionServo::loop(unsigned long currentTime) {
+bool MotionServo::loop(unsigned long currentTime, bool smooth) {
   if (_position.destination == _position.current) return false;
   if (currentTime < _time.start) return true;
 
@@ -116,7 +116,20 @@ bool MotionServo::loop(unsigned long currentTime) {
     setServo(_position.destination);
     return false;
   } else {
-    uint8_t moveToThisTime = _position.start + ((float)movement * ((float)currentMovementTime / (float)_time.duration));
+    float timePoint = (float)currentMovementTime / (float)_time.duration;
+    uint8_t moveToThisTime = _position.start;
+    if (smooth) {
+      movement /= 2;
+      if (timePoint < 0.5) {
+        moveToThisTime += movement * (pow(timePoint * DOUBLE_BASE, EXPONENT) / POW);
+      } else {
+        timePoint = 1 - timePoint;
+        moveToThisTime += movement;
+        moveToThisTime += movement * (1 - (pow(timePoint * DOUBLE_BASE, EXPONENT) / POW));
+      }
+    } else {
+      moveToThisTime += (float)movement * timePoint;
+    }
     setServo(moveToThisTime);
     return true;
   }
